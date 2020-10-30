@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+
+<style>
+
+
+</style>
+
+
+{% block content%}
+
+<main role="main" class="container">
+
+  <div class="starter-template">
+    <p><h1>{{ page }}</h1>
+    <a href="{% url 'add_class_name' %}"><input class="btn btn-primary" type="button" style="float: right;" value="Create Class Name"></a></p><br><br>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Code</th>
+      <th scope="col">Grade</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for q in queryset %}
+    <tr>
+      <td>{{ q.name }}</td>
+      <td>{{ q.code }}</td>
+      <td>{{ q.grade }}</td>
+      <td>
+
+          <a href="{% url 'edit_class_name' q.id %}" class="on-default edit-row"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+          <a href="{% url 'delete_class_name' q.id %}" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+  </div>
+
+</main>
+
+{% endblock %}

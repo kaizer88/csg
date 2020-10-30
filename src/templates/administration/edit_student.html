@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+<style>
+
+
+</style>
+
+
+{% block content%}
+
+<main role="main" class="container">
+
+  <p class="starter-template">
+      <p><h1>{% if pk %}Edit {% else %} Add {% endif%}</h1></p>
+      <form action="" method="post">
+    {% csrf_token %}
+      <div class="row">
+        <div class="col-6">
+          {% bootstrap_field form.student_number %}
+          {% bootstrap_field form.name %}
+          {% bootstrap_field form.middle_name %}
+        </div>
+          <div class="col-6">
+          {% bootstrap_field form.surname %}
+          {% bootstrap_field form.id_number %}
+          {% bootstrap_field form.class_name %}
+        </div>
+      </div>
+          {% if pk %}
+          <button type="submit" class="btn btn-primary">Modify</button>
+        {% else %}
+          <button type="submit" class="btn btn-primary">Add</button>
+        {% endif %}
+        <a href="{% url 'students' %}">
+        <button class="btn btn-primary" type="button">
+            Cancel</button></a>
+    </form>
+  </div>
+
+</main>
+
+{% endblock %}

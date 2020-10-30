@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div class="content pt-0">
+
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+        <ol class="breadcrumb pull-right">
+            <li>{{ user|title }}</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">
+                {% if pk %}Edit {% else %} Add {% endif%}</h3></div>
+            <div class="panel-body">
+                <div class=" form">
+                    <form action="" method="post">
+                    {% csrf_token %}
+                          <div class="row">
+                            <div class="col-12">
+                              {% bootstrap_field form.student %}
+                              {% bootstrap_field form.day %}
+                              {% bootstrap_field form.status %}
+                            </div>
+                          </div>
+                        {% if pk %}
+                          <button type="submit" class="btn btn-primary">Modify</button>
+                        {% else %}
+                          <button type="submit" class="btn btn-primary">Add</button>
+                        {% endif %}
+                        <a href="{% url 'attendances' %}">
+                        <button class="btn btn-default waves-effect" type="button">
+                            Cancel</button></a>
+                    </form>
+                </div> <!-- .form -->
+            </div> <!-- panel-body -->
+        </div> <!-- panel -->
+    </div> <!-- col -->
+
+</div> <!-- End row -->
+</div>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+{% block content %}
+
+<div class="content pt-0">
+
+<!--<form action="" method="post"   >-->
+<!--{% csrf_token %}-->
+<!--      <div class="row">-->
+<!--        <div class="col-12">-->
+<!--          {% bootstrap_field form.name %}-->
+<!--          {% bootstrap_field form.code %}-->
+<!--          {% bootstrap_field form.province %}-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    {% if district %}-->
+<!--      <button type="submit" class="btn btn-primary">Modify</button>-->
+<!--    {% else %}-->
+<!--      <button type="submit" class="btn btn-primary">Add</button>-->
+<!--    {% endif %}-->
+<!--</form>-->
+
+<!-- Page-Title -->
+<div class="row">
+    <div class="col-sm-12">
+<!--        <h4 class="pull-left page-title">Form Validation</h4>-->
+        <ol class="breadcrumb pull-right">
+            <li>{{ user|title }}</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading"><h3 class="panel-title">{% if town %}Edit {% else %} Add {% endif%}</h3></div>
+            <div class="panel-body">
+                <div class=" form">
+                    <form method="post" action="" novalidate="novalidate">
+                        {% csrf_token %}
+
+
+
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button class="btn btn-success waves-effect waves-light" type="submit">Save</button>
+                                <button class="btn btn-default waves-effect" type="button">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div> <!-- .form -->
+            </div> <!-- panel-body -->
+        </div> <!-- panel -->
+    </div> <!-- col -->
+
+</div> <!-- End row -->
+
+{% endblock %}

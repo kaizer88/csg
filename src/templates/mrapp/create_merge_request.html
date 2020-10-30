@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content%}
+
+<script type='text/javascript'>
+$(function() {
+
+  $( "#id_repo").change(function() {
+    var url = $("#mrForm").attr("data-source_branch-url");
+    var repoId = $(this).val();
+
+    $.ajax({
+        url: url,
+        data:{"repoId":repoId},
+        success: function (data) {
+            let select = $('#id_source_branch').empty();
+            let select2 = $('#id_target_branch').empty();
+            select.prepend('<option value="" selected="selected">---------</option>');
+            select2.prepend('<option value="" selected="selected">---------</option>');
+            $.each(data.source_branches, function(key, value) {
+                select.append('<option value="'
+                                     + value.id
+                                     + '">'
+                                     + value.branch_name
+                                     + '</option>'
+                                );
+                });
+            }
+        });
+
+    });
+
+    $( "#id_source_branch").change(function() {
+    var url = $("#mrForm").attr("data-target_branch-url");
+    var source_branchId = $(this).val();
+    var d = $('#id_source_branch:selected').val()
+
+    $.ajax({
+        url: url,
+        data:{"source_branchId":source_branchId},
+        success: function (data) {
+
+            let select22 = $('#id_target_branch').empty();
+            select22.prepend('<option value="" selected="selected">---------</option>');
+            $.each(data.target_branches, function(key, value) {
+                select22.append('<option value="'
+                                     + value.id
+                                     + '">'
+                                     + value.branch_name
+                                     + '</option>'
+                                );
+                });
+            }
+        });
+
+    });
+});
+</script>
+<style>
+
+</style>
+
+<main role="main" class="container">
+
+  <div class="starter-template">
+    <p><h1>Create New Merge Request</h1>
+    <a href="{% url 'list_merge_request' %}"><input class="btn btn-primary" type="button" style="float: right;" value="Merge Request List"></a></p><br><br>
+    <form action="" method="post" id="mrForm"
+    data-source_branch-url="{% url 'get_source_branch' %}"
+    data-target_branch-url="{% url 'get_target_branch' %}">
+      <input type="hidden" autocomplete="off" name='hiddenfield' value="{{ current_page_url }}" id="mrFormm"  />
+    {% csrf_token %}
+      <div class="row">
+        <div class="col-6">
+          {% bootstrap_field form.title %}
+          {% bootstrap_field form.source_branch %}
+          {% bootstrap_field form.assignee %}
+        </div>
+        <div class="col-6">
+          {% bootstrap_field form.repo %}
+          {% bootstrap_field form.target_branch %}
+        </div>
+      </div>
+
+    <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+  </div>
+
+</main>
+
+{% endblock %}

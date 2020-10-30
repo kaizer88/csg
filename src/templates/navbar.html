@@ -1,0 +1,32 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">CSG APP</a>
+
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard' %}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'classNames' %}">Class Names</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'students' %}">Students</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'attendances' %}">Attendances</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'term_reports' %}">Reports</a>
+      </li>
+
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <li><a class="nav-link" href="#">Welcome {{ user|title }}</a></li>
+      <li><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+  </div>
+</nav>

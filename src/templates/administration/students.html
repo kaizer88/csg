@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+
+<style>
+
+
+</style>
+
+
+{% block content%}
+
+<main role="main" class="container">
+
+  <div class="starter-template">
+    <p><h1>{{ page }}</h1>
+    <a href="{% url 'add_student' %}"><input class="btn btn-primary" type="button" style="float: right;" value="Add Student"></a></p><br><br>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Student Number</th>
+      <th scope="col">Name</th>
+      <th scope="col">Surname</th>
+      <th scope="col">Class Name</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for q in queryset %}
+    <tr>
+      <td>{{ q.student_number }}</td>
+      <td>{{ q.name }}</td>
+      <td>{{ q.surname }}</td>
+      <td>{{ q.class_name }}</td>
+      <td>
+          <a href="{% url 'edit_student' q.id %}" class="on-default edit-row"><i class="fa fa-pencil" aria-hidden="true"></i></a>&nbsp;&nbsp;
+          <a href="{% url 'delete_student' q.id %}" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+  </div>
+
+</main>
+
+{% endblock %}

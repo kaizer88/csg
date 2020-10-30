@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load bootstrap4 %}
+
+<style>
+
+
+</style>
+
+
+{% block content%}
+
+<main role="main" class="container">
+
+  <div class="starter-template">
+    <p><h1>{% if repo %}Update Repo {% else %} Create Repo{% endif %}</h1>
+    <a href="{% url 'list_repo' %}"><input class="btn btn-primary" type="button" style="float: right;" value="Repo List"></a></p><br><br>
+    <form action="" method="post">
+    {% csrf_token %}
+      <div class="row">
+        <div class="col-6">
+          {% bootstrap_field form.repo_name %}
+        </div>
+      </div>
+
+    <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+  </div>
+
+</main>
+
+{% endblock %}
