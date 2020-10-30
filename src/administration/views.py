@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import ClassName, Student, Attendance
+from .models import ClassName, Student, Attendance, Calendar
 from .forms import ClassNameForm, StudentForm, AttendanceForm
 from django.db import IntegrityError
 from django_xhtml2pdf.utils import generate_pdf
@@ -53,7 +53,6 @@ def edit_class_name(request, pk= None):
         try:
             if not pk:
 
-                # className.created_by_id = request.user.id
                 class_name = form.save(commit=False)
                 class_name.save()
                 messages.success(request, 'Class name created')
@@ -87,7 +86,7 @@ def edit_student(request, pk= None):
     if form.is_valid():
         if not pk:
             student = form.save(commit=False)
-            # learner.created_by_id = request.user.id
+            # student.created_by_id = request.user.id
             student.save()
             messages.success(request, 'student created')
 
@@ -176,34 +175,29 @@ def report_student(request, pk):
 @login_required()
 def term_reports(request):
     context = {}
-    qs = Attendance.objects.filter(report='yes')
-    messages.success(request, 'student attendance reported')
-    return redirect('term_reports')
-
-@login_required()
-def term_reports(request):
-    context = {}
     qs = Student.objects.all()
-
     context['page'] = 'Term Reports'
-
+    context['queryset'] = qs
     return render(request, 'administration/term_reports.html', context=context)
 
 
-def generate_pdf_report(response, pk):
+def generate_pdf_report(response, pk, term):
 
     context = {}
-    # student = Student.object.get(pk=pk)
-    qs = Attendance.objects.filter(student_id=pk)
+    student = Student.objects.get(pk=pk)
+    absent_count = Attendance.objects.filter(student_id=pk, status='absent', term=term, report='yes').count()
+    presence_count = Attendance.objects.filter(student_id=pk, status='present', term=term, report='yes').count()
 
     context['rpt_name'] = "CSG School Report"
-    context['queryset'] = "qs"
+    context['term'] = term
+    context['absent_count'] = absent_count
+    context['absent_count'] = absent_count
+    context['presence_count'] = presence_count
+    context['name'] = student.full_name
+    context['grade'] = student.class_name.grade
+    context['class_name'] = student.class_name.name
     context['today'] = timezone.now()
 
     resp = HttpResponse(content_type='application/pdf')
     result = generate_pdf('administration/student_report_pdf.html', file_object=resp, context=context)
     return result
-
-
-def calculate_absence(id):
-    qs = Attendance.objects.filter(pk=id)

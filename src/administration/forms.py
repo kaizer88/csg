@@ -1,5 +1,5 @@
 from django import forms
-from .models import ClassName, Student, Attendance
+from .models import ClassName, Student, Attendance, Calendar
 
 
 class ClassNameForm(forms.ModelForm):
@@ -14,11 +14,16 @@ class StudentForm(forms.ModelForm):
         fields = ['student_number', 'name', 'middle_name',
                   'surname', 'id_number', 'class_name']
 
+
 class DateInput(forms.DateInput):
     input_type = 'date'
 
+
 class AttendanceForm(forms.ModelForm):
     day = forms.DateField(widget=DateInput())
+
     class Meta:
         model = Attendance
-        fields = ['student', 'day', 'status']
+        fields = ['student', 'day', 'status', 'time', 'term']
+
+

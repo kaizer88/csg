@@ -24,8 +24,8 @@ urlpatterns = [
     path('delete_attendance/<pk>', delete_attendance, name='delete_attendance'),
 
     path('report_student/<pk>', report_student, name='report_student'),
-    path('report_student/<pk>', report_student, name='report_student'),
     path('term_reports', term_reports, name='term_reports'),
-    path('generate_pdf_report/<pk>', generate_pdf_report, name='generate_pdf_report'),
+    path('generate_pdf_report/<pk>/<term>', generate_pdf_report, name='generate_pdf_report'),
+
 
 ]

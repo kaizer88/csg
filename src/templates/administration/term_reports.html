@@ -26,10 +26,13 @@
   {% for q in queryset %}
     <tr>
       <td>{{ q.full_name }}</td>
-      <td>{{ q.std }}</td>
+      <td>{{ q.student_number }}</td>
       <td>{{ q.class_name }}</td>
       <td>
-          <a href="{% url 'generate_pdf_report' q.id %}" target="_blank" class="on-default remove-row"><i class="fa fa-paper-plane" aria-hidden="true" title="report"></i></a>
+          <a href="{% url 'generate_pdf_report' q.id 1 %}" target="_blank" class="on-default remove-row"><i class="fa fa-paper-plane" aria-hidden="true" title="report"></i> 1st</a>
+          <a href="{% url 'generate_pdf_report' q.id 2 %}" target="_blank" class="on-default remove-row"><i class="fa fa-paper-plane" aria-hidden="true" title="report"></i> 2st</a>
+          <a href="{% url 'generate_pdf_report' q.id 3 %}" target="_blank" class="on-default remove-row"><i class="fa fa-paper-plane" aria-hidden="true" title="report"></i> 3rd</a>
+          <a href="{% url 'generate_pdf_report' q.id 4 %}" target="_blank" class="on-default remove-row"><i class="fa fa-paper-plane" aria-hidden="true" title="report"></i> 4th</a>
       </td>
     </tr>
   {% endfor %}

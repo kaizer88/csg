@@ -1,5 +1,5 @@
 from django.db import models
-from lib.models import BaseModel
+from libs.models import BaseModel
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -23,8 +23,8 @@ class ClassName(BaseModel):
         return "{} - {}".format(self.name, self.grade)
 
 
-
 class Student(BaseModel):
+
     student_number = models.CharField(max_length=255, unique=True, null=False, blank=False)
     name = models.CharField(max_length=255, null=False, blank=False)
     middle_name = models.CharField(max_length=255, null=True, blank=True)
@@ -32,7 +32,6 @@ class Student(BaseModel):
     id_number = models.IntegerField(null=False, blank=False)
     class_name = models.ForeignKey(ClassName, on_delete=models.CASCADE, null=False, blank=False)
     # created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
-
 
     def __str__(self):
         return "{} - {} - {}".format(self.name, self.surname, self.class_name)
@@ -45,10 +44,6 @@ class Student(BaseModel):
     def std(self):
         return "{}".format(self.student_number)
 
-# class Calender(BaseModel):
-#     year = models.IntegerField(unique=True, null=False, blank=False)
-#     term = models.CharField(max_length=255, unique=True, null=False, blank=False)
-
 
 class Attendance(BaseModel):
     STATUES = (
@@ -59,10 +54,18 @@ class Attendance(BaseModel):
         ('no', 'No'),
         ('yes', 'Yes')
     )
+    TERMS = (
+        ('1', '1st'),
+        ('2', '2nd'),
+        ('3', '3rd'),
+        ('4', '4th')
+    )
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=False, blank=False)
     day = models.DateField(null=False, blank=False)
+    time = models.TimeField(null=True, blank=True)
     status = models.CharField(max_length=250, choices=STATUES, null=False, blank=False)
     report = models.CharField(max_length=250, choices=Reported, null=False, blank=False, default='no')
+    term = models.CharField(max_length=255, choices=TERMS, null=True, blank=True)
     # created_by = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
 
     class Meta:
