@@ -1,4 +1,3 @@
-CSG
 CSG Candidate Skills Assessment
 
 Requirements:
