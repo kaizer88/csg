@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'dashboard',
     'administration',
     'bootstrap4',
-    'bootstrap_datepicker_plus',
 ]
 BOOTSTRAP4 = {
     'include_jquery': True,

@@ -9,8 +9,4 @@ from django.contrib import messages
 @login_required()
 def dashboard(request):
     context = {}
-    # sites = Site.objects.all()
-    # context['parent'] = 'Controllers'
-    # context['page'] = 'Sites'
-    # context['sites'] = sites
     return render(request, 'dashboard/dashboard.html', context)

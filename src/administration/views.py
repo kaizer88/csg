@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import ClassName, Student, Attendance, Calendar
+from .models import ClassName, Student, Attendance
 from .forms import ClassNameForm, StudentForm, AttendanceForm
 from django.db import IntegrityError
 from django_xhtml2pdf.utils import generate_pdf
